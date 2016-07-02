@@ -1209,22 +1209,15 @@ void Song::Save(bool autosave)
 	TranslateTitles();
 
 	// Save the new files. These calls make backups on their own.
-	if( !SaveToSSCFile(GetSongFilePath(), false, autosave) )
+	if( !SaveToSMFile() )
 		return;
-	// Skip saving the cache, sm, and .old files if we are autosaving.  The
+	// Skip saving the cache file if we are autosaving.  The
 	// cache file should not contain the autosave filename. -Kyz
 	if(autosave)
 	{
 		return;
 	}
 	SaveToCacheFile();
-	// If one of the charts uses split timing, then it cannot be accurately
-	// saved in the .sm format.  So saving the .sm is disabled.
-	if(!AnyChartUsesSplitTiming())
-	{
-		SaveToSMFile();
-	}
-	//SaveToDWIFile();
 
 	/* We've safely written our files and created backups. Rename non-SM and
 	 * non-DWI files to avoid confusion. */
@@ -1252,10 +1245,6 @@ bool Song::SaveToSMFile()
 {
 	const RString sPath = SetExtension( GetSongFilePath(), "sm" );
 	LOG->Trace( "Song::SaveToSMFile(%s)", sPath.c_str() );
-
-	// If the file exists, make a backup.
-	if( IsAFile(sPath) )
-		FileCopy( sPath, sPath + ".old" );
 
 	vector<Steps*> vpStepsToSave;
 	FOREACH_CONST( Steps*, m_vpSteps, s )
