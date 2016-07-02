@@ -1395,6 +1395,9 @@ REGISTER_SCREEN_CLASS( ScreenEdit );
 
 void ScreenEdit::Init()
 {
+	// Default options when playing the song in the editor.
+	GAMESTATE->m_pPlayerState[PLAYER_1]->m_PlayerOptions.FromString(ModsLevel_Preferred, "3x,distant,clap");
+
 	m_pSoundMusic = NULL;
 	
 	GAMESTATE->m_bIsUsingStepTiming = false;
@@ -1569,6 +1572,10 @@ void ScreenEdit::Init()
 	m_bTextInfoNeedsUpdate = true;
 
 	SubscribeToMessage( Message_SongModified );
+
+	// Default the editor to 2x zoom.
+	PlayerState *pPlayerState = const_cast<PlayerState *> (m_NoteFieldEdit.GetPlayerState());
+	PO_GROUP_ASSIGN( pPlayerState->m_PlayerOptions, ModsLevel_Song, m_fScrollSpeed, 2.0f );
 }
 
 ScreenEdit::~ScreenEdit()
