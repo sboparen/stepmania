@@ -10,4 +10,4 @@ for p in "${PACKAGES[@]}"; do
     sudo apt-get install $p
 done
 cd Build
-cmake -G 'Unix Makefiles' ..
+cmake -DCMAKE_BUILD_TYPE=Release -G 'Unix Makefiles' ..
