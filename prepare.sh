@@ -6,8 +6,6 @@ libbz2-dev
 libglew-dev
 libudev-dev
 )
-for p in "${PACKAGES[@]}"; do
-    sudo apt-get install $p
-done
+sudo apt install "${PACKAGES[@]}"
 cd Build
 cmake -DCMAKE_BUILD_TYPE=Release -G 'Unix Makefiles' ..
