@@ -219,8 +219,8 @@ static RString GetSMNotesTag( const Song &song, const Steps &in )
 
 	lines.push_back( "" );
 	// Escape to prevent some clown from making a comment of "\r\n;"
-	lines.push_back( ssprintf("//---------------%s - %s----------------",
-		in.m_StepsTypeStr.c_str(), SmEscape(in.GetDescription()).c_str()) );
+	//lines.push_back( ssprintf("//---------------%s - %s----------------",
+	//	in.m_StepsTypeStr.c_str(), SmEscape(in.GetDescription()).c_str()) );
 	lines.push_back( song.m_vsKeysoundFile.empty() ? "#NOTES:" : "#NOTES2:" );
 	lines.push_back( ssprintf( "     %s:", in.m_StepsTypeStr.c_str() ) );
 	RString desc = (USE_CREDIT ? in.GetCredit() : in.GetChartName());
